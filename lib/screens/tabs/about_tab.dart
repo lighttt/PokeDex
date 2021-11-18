@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pokedexapp/model/pokemon_model.dart';
 
 class AboutTab extends StatelessWidget {
@@ -86,7 +87,7 @@ class AboutTab extends StatelessWidget {
             Row(
               children: [
                 Icon(
-                  Icons.add,
+                  FontAwesomeIcons.mars,
                   color: Colors.blue,
                 ),
                 SizedBox(width: 10),
@@ -102,7 +103,7 @@ class AboutTab extends StatelessWidget {
             ),
             Row(
               children: [
-                Icon(Icons.minimize, color: Colors.pink),
+                Icon(FontAwesomeIcons.venus, color: Colors.pink),
                 SizedBox(width: 10),
                 Text(
                   pokemon.femalePercentage,

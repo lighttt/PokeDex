@@ -62,7 +62,7 @@ class PokemonListItem extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 4, horizontal: 4),
                                   decoration: BoxDecoration(
-                                      color: PokemonUtils.getColor(pokemon),
+                                      color: PokemonUtils.getColorType(type),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: Colors.white)),
                                   child: Text(type,
@@ -74,9 +74,12 @@ class PokemonListItem extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 3,
-                      child: Image.network(
-                        pokemon.imageUrl,
-                        height: 100,
+                      child: Hero(
+                        tag: 'pokemon${pokemon.id}',
+                        child: Image.network(
+                          pokemon.imageUrl,
+                          height: 100,
+                        ),
                       ),
                     )
                   ],

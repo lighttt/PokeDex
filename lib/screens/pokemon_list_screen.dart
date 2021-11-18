@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedexapp/providers/pokemon_provider.dart';
 import 'package:pokedexapp/screens/favourite_screen.dart';
 import 'package:pokedexapp/screens/pokemon_list_item.dart';
+import 'package:pokedexapp/screens/pokemon_search_delegate.dart';
 import 'package:provider/provider.dart';
 
 class PokemonListScreen extends StatefulWidget {
@@ -49,7 +50,9 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                 Icons.search,
                 size: 30,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                showSearch(context: context, delegate: PokemonSearchDelegate());
+              }),
           IconButton(
               icon: Icon(Icons.favorite_border, size: 30),
               onPressed: () {

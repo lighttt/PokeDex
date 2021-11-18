@@ -97,9 +97,12 @@ class PokemonDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Image.network(
-              selectedPokemon.imageUrl,
-              height: 200,
+            Hero(
+              tag: 'pokemon${selectedPokemon.id}',
+              child: Image.network(
+                selectedPokemon.imageUrl,
+                height: 200,
+              ),
             ),
             Container(
               decoration: BoxDecoration(
