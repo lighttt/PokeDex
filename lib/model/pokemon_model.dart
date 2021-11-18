@@ -24,33 +24,36 @@ class PokemonModel {
   List<String> types;
   List<String> abilities;
   String evolveLevel;
+  bool isFavourite = false;
 
-  PokemonModel(
-      {this.id,
-      this.name,
-      this.description,
-      this.category,
-      this.imageUrl,
-      this.height,
-      this.weight,
-      this.hp,
-      this.attack,
-      this.defense,
-      this.specialAttack,
-      this.specialDefense,
-      this.speed,
-      this.total,
-      this.malePercentage,
-      this.femalePercentage,
-      this.eggGroups,
-      this.evolvedFrom,
-      this.cycles,
-      this.baseExp,
-      this.weaknesses,
-      this.evolutions,
-      this.types,
-      this.abilities,
-      this.evolveLevel});
+  PokemonModel({
+    this.id,
+    this.name,
+    this.description,
+    this.category,
+    this.imageUrl,
+    this.height,
+    this.weight,
+    this.hp,
+    this.attack,
+    this.defense,
+    this.specialAttack,
+    this.specialDefense,
+    this.speed,
+    this.total,
+    this.malePercentage,
+    this.femalePercentage,
+    this.eggGroups,
+    this.evolvedFrom,
+    this.cycles,
+    this.baseExp,
+    this.weaknesses,
+    this.evolutions,
+    this.types,
+    this.abilities,
+    this.evolveLevel,
+    this.isFavourite = false,
+  });
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(

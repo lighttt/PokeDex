@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/pokemon_list_screen.dart';
+import 'package:pokedexapp/providers/pokemon_provider.dart';
+import 'package:pokedexapp/screens/pokemon_list_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(PokemonApp());
@@ -10,11 +12,12 @@ class PokemonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.white
+    return ChangeNotifierProvider(
+      create: (ctx) => PokemonProvider(),
+      child: MaterialApp(
+        theme: ThemeData(primaryColor: Colors.white),
+        home: PokemonListScreen(),
       ),
-      home: PokemonListScreen(),
     );
   }
 }
