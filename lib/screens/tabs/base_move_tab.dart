@@ -25,7 +25,7 @@ class BaseMoveTab extends StatelessWidget {
         Expanded(
             flex: 1,
             child: Text(
-              '20',
+              '$value',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
