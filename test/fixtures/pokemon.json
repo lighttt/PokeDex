@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Bulbasaur",
+    "id": "#001",
+    "imageurl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png",
+    "xdescription": "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger.",
+    "height": "2' 04",
+    "category": "Seed",
+    "weight": "15.2 lbs",
+    "typeofpokemon": [
+      "Grass",
+      "Poison"
+    ],
+    "weaknesses": [
+      "Fire",
+      "Flying",
+      "Ice",
+      "Psychic"
+    ],
+    "evolutions": [
+      "#001",
+      "#002",
+      "#003"
+    ],
+    "abilities": [
+      "Overgrow"
+    ],
+    "hp": 20,
+    "attack": 30,
+    "defense": 20,
+    "special_attack": 30,
+    "special_defense": 30,
+    "speed": 30,
+    "total": 160,
+    "male_percentage": "87.5%",
+    "female_percentage": "12.5%",
+    "genderless": 0,
+    "cycles": "20 ",
+    "egg_groups": "Grass, Monster ",
+    "base_exp": "64"
+  }
+]
