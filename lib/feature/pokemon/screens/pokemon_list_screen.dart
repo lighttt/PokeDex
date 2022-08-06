@@ -1,4 +1,6 @@
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:pokedexapp/core/network/network_info.dart';
 import 'package:pokedexapp/core/services/service_locator.dart';
 import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
 import 'package:pokedexapp/feature/pokemon/screens/favourite_screen.dart';
@@ -44,6 +46,21 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
         elevation: 0,
         centerTitle: false,
         actions: [
+          StreamBuilder(
+              stream: locator<NetworkInfo>().connectionStream,
+              builder: (ctx, AsyncSnapshot<DataConnectionStatus> snapshot) {
+                return snapshot.connectionState == ConnectionState.waiting
+                    ? CircularProgressIndicator()
+                    : Icon(
+                        snapshot.data == DataConnectionStatus.connected
+                            ? Icons.wifi
+                            : Icons.signal_wifi_bad_outlined,
+                        size: 30,
+                        color: snapshot.data == DataConnectionStatus.connected
+                            ? Colors.green.shade900
+                            : Colors.red.shade700,
+                      );
+              }),
           IconButton(
               icon: Icon(
                 Icons.search,
@@ -69,21 +86,28 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                   ? Center(child: Text('Sorry data could not be loaded'))
                   : Consumer<PokemonProvider>(
                       builder: (ctx, data, child) {
-                        return GridView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10),
-                          itemCount: 50,
-                          itemBuilder: (ctx, index) {
-                            final pokemon = data.pokemonList[index];
-                            return PokemonListItem(
-                              pokemon: pokemon,
-                            );
-                          },
-                        );
+                        return RefreshIndicator(
+                            triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                            onRefresh: () async {
+                              setState(() {
+                                _fetchData = _getPokemonData();
+                              });
+                            },
+                            child: GridView.builder(
+                              padding: EdgeInsets.symmetric(horizontal: 4),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10),
+                              itemCount: 50,
+                              itemBuilder: (ctx, index) {
+                                final pokemon = data.pokemonList[index];
+                                return PokemonListItem(
+                                  pokemon: pokemon,
+                                );
+                              },
+                            ));
                       },
                     );
         },

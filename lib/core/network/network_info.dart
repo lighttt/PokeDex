@@ -2,6 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;
+  Stream<DataConnectionStatus> get connectionStream;
 }
 
 class NetworkInfoImpl implements NetworkInfo {
@@ -10,4 +11,9 @@ class NetworkInfoImpl implements NetworkInfo {
 
   @override
   Future<bool> get isConnected => connectionChecker.hasConnection;
+
+  @override
+  Stream<DataConnectionStatus> get connectionStream => connectionChecker.onStatusChange;
+
+
 }
