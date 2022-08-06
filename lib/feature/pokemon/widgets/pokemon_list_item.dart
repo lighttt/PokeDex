@@ -6,6 +6,7 @@ import '../../../core/utilities/pokemon_utlis.dart';
 
 class PokemonListItem extends StatelessWidget {
   final PokemonModel pokemon;
+
   const PokemonListItem({Key key, this.pokemon}) : super(key: key);
 
   @override
@@ -79,6 +80,12 @@ class PokemonListItem extends StatelessWidget {
                         child: Image.network(
                           pokemon.imageUrl,
                           height: 100,
+                          errorBuilder: (src, _, __) {
+                            return Image.asset(
+                              'assets/images/pokeball.png',
+                              height: 70,
+                            );
+                          },
                         ),
                       ),
                     )
