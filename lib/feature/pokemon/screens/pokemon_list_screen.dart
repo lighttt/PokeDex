@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/feature/favourite_screen.dart';
-import 'package:pokedexapp/feature/pokemon_list/pokemon_list_item.dart';
-import 'package:pokedexapp/feature/pokemon_search_delegate.dart';
+import 'package:pokedexapp/core/services/service_locator.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/screens/favourite_screen.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/pokemon_list_item.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/pokemon_search_delegate.dart';
 import 'package:provider/provider.dart';
 
 class PokemonListScreen extends StatefulWidget {
-  const PokemonListScreen({Key key}) : super(key: key);
-
   @override
-  _PokemonListScreenState createState() => _PokemonListScreenState();
+  State<PokemonListScreen> createState() => _PokemonListScreenState();
 }
 
 class _PokemonListScreenState extends State<PokemonListScreen> {
@@ -63,27 +62,30 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
       ),
       body: FutureBuilder(
         future: _fetchData,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.connectionState == ConnectionState.waiting
               ? Center(child: CircularProgressIndicator())
-              : Consumer<PokemonProvider>(
-                  builder: (ctx, data, child) {
-                    return GridView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10),
-                      itemCount: 50,
-                      itemBuilder: (ctx, index) {
-                        final pokemon = data.pokemonList[index];
-                        return PokemonListItem(
-                          pokemon: pokemon,
+              : snapshot.hasError
+                  ? Center(child: Text('Sorry data could not be loaded'))
+                  : Consumer<PokemonProvider>(
+                      builder: (ctx, data, child) {
+                        return GridView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10),
+                          itemCount: 50,
+                          itemBuilder: (ctx, index) {
+                            final pokemon = data.pokemonList[index];
+                            return PokemonListItem(
+                              pokemon: pokemon,
+                            );
+                          },
                         );
                       },
                     );
-                  },
-                );
         },
       ),
     );

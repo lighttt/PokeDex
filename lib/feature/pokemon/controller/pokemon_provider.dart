@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,31 +8,23 @@ import 'package:pokedexapp/data/models/pokemon_model.dart';
 import 'package:pokedexapp/domain/usecases/get_pokemons_usecase.dart';
 
 class PokemonProvider with ChangeNotifier {
-  final GetPokemons getPokemons;
+  final GetPokemonListUseCase getPokemonListUseCase;
 
-  List<PokemonModel> _pokemonList = [];
+  UnmodifiableListView<PokemonModel> _pokemonList = UnmodifiableListView([]);
 
-  PokemonProvider({@required this.getPokemons});
+  PokemonProvider({@required this.getPokemonListUseCase});
 
-  List<PokemonModel> get pokemonList => _pokemonList;
+  UnmodifiableListView<PokemonModel> get pokemonList => _pokemonList;
 
-  bool _isError = false;
-
-  bool get isError => _isError;
-
-  bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
 
   Future<void> getPokemonData() async {
-    _isLoading = true;
-    notifyListeners();
-    final response = await getPokemons.call(NoParams());
+    final response = await getPokemonListUseCase.call(NoParams());
     response.fold((failure) {
-      _isError = true;
-    }, (pokemonList) => _pokemonList = pokemonList);
-    _isLoading = false;
-    notifyListeners();
+     throw Error();
+    }, (pokemonList) {
+      _pokemonList = pokemonList;
+      notifyListeners();
+    });
   }
 
   PokemonModel getPokemonById(String id) {

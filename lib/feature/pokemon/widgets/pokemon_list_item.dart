@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/data/models/pokemon_model.dart';
-import 'package:pokedexapp/feature/pokemon_details/pokemon_detail_screen.dart';
+import 'package:pokedexapp/feature/pokemon/screens/pokemon_detail_screen.dart';
 
-import '../../core/utilities/pokemon_utlis.dart';
+import '../../../core/utilities/pokemon_utlis.dart';
 
 class PokemonListItem extends StatelessWidget {
   final PokemonModel pokemon;

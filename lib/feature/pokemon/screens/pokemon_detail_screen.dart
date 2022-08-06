@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/tabs/about_tab.dart';
-import 'package:pokedexapp/screens/tabs/evolution_tab.dart';
+import 'package:pokedexapp/core/utilities/pokemon_utlis.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/about_tab.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/base_move_tab.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/evolution_tab.dart';
 import 'package:provider/provider.dart';
 
-import '../pokemon_utlis.dart';
-import 'tabs/base_move_tab.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
   final String id;
@@ -33,7 +33,7 @@ class PokemonDetailScreen extends StatelessWidget {
                         ? Icons.favorite
                         : Icons.favorite_border,
                     color: selectedPokemon.isFavourite
-                        ? Colors.red.shade200
+                        ? Colors.red
                         : Colors.white,
                   ),
                   iconSize: 28,

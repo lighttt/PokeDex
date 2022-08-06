@@ -1,12 +1,25 @@
-import 'package:pokedexapp/model/pokemon_model.dart';
+import 'package:flutter/material.dart';
+import 'package:pokedexapp/core/error/exceptions.dart';
+import 'package:http/http.dart' as http;
 
-/// The data source is actually where the data is got from the API
-/// Here we create http methods we want without returning Failure types
-/// instead we throw normal exceptions
-abstract class PokemonRemoteDataSource {
+abstract class RemotePokemonDataSource {
+  Future<String> getPokemonList();
+}
 
-  /// Calls the http://numbersapi.com/random endpoint
-  ///
-  /// Throws a [ServerException] for all error codes.
-  Future<void> getCachePokemonList(List<PokemonModel> pokemonModel);
+class RemotePokemonDataSourceImpl implements RemotePokemonDataSource {
+
+ final http.Client httpClient;
+
+ RemotePokemonDataSourceImpl({@required this.httpClient});
+
+  @override
+  Future<String> getPokemonList() async {
+    try {
+      final response = await httpClient.get(Uri.parse(
+          'https://gist.githubusercontent.com/lighttt/20e03ef249cc9b3ab5496b777c6f066f/raw/b27d2dce021d3b1f906f47bdbf574ffba62c1ded/pokeapi.json'));
+      return response.body;
+    } catch (error) {
+      throw ServerException();
+    }
+  }
 }

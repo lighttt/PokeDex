@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/model/pokemon_model.dart';
+import 'package:pokedexapp/data/models/pokemon_model.dart';
 
 class PokemonUtils {
   static Color getColor(PokemonModel pokemon) {

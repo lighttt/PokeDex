@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/model/pokemon_model.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
+import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
 import 'package:provider/provider.dart';
 
 class EvolutionTab extends StatefulWidget {
