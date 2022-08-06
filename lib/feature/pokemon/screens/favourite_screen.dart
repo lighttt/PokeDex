@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/pokemon_list_item.dart';
+import 'package:pokedexapp/feature/pokemon_list/pokemon_list_item.dart';
 import 'package:provider/provider.dart';
 
 class FavouriteScreen extends StatelessWidget {

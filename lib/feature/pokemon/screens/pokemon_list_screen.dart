@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/favourite_screen.dart';
-import 'package:pokedexapp/screens/pokemon_list_item.dart';
-import 'package:pokedexapp/screens/pokemon_search_delegate.dart';
+import 'package:pokedexapp/feature/favourite_screen.dart';
+import 'package:pokedexapp/feature/pokemon_list/pokemon_list_item.dart';
+import 'package:pokedexapp/feature/pokemon_search_delegate.dart';
 import 'package:provider/provider.dart';
 
 class PokemonListScreen extends StatefulWidget {

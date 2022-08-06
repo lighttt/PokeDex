@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/pokemon_detail_screen.dart';
+import 'package:pokedexapp/feature/pokemon_details/pokemon_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class PokemonSearchDelegate extends SearchDelegate {
