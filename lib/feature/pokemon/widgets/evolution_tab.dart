@@ -36,6 +36,12 @@ class _EvolutionTabState extends State<EvolutionTab> {
             Image.network(
               firstPokemon.imageUrl,
               height: 100,
+              errorBuilder: (src, _, __) {
+                return Image.asset(
+                  'assets/images/pokeball.png',
+                  height: 80,
+                );
+              },
             ),
             Text(
               firstPokemon.name,
@@ -57,6 +63,12 @@ class _EvolutionTabState extends State<EvolutionTab> {
             Image.network(
               secondPokemon.imageUrl,
               height: 100,
+              errorBuilder: (src, _, __) {
+                return Image.asset(
+                  'assets/images/pokeball.png',
+                  height: 80,
+                );
+              },
             ),
             Text(
               secondPokemon.name,

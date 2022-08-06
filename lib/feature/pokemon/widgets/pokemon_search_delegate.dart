@@ -65,6 +65,12 @@ class PokemonSearchDelegate extends SearchDelegate {
                           leading: Image.network(
                             pokemon.imageUrl,
                             height: 80,
+                            errorBuilder: (src, _, __) {
+                              return Image.asset(
+                                'assets/images/pokeball.png',
+                                height: 80,
+                              );
+                            },
                           ),
                           title: Text(pokemon.name),
                         );
@@ -104,6 +110,12 @@ class PokemonSearchDelegate extends SearchDelegate {
                           leading: Image.network(
                             pokemon.imageUrl,
                             height: 80,
+                            errorBuilder: (src, _, __) {
+                              return Image.asset(
+                                'assets/images/pokeball.png',
+                                height: 70,
+                              );
+                            },
                           ),
                           title: Text(pokemon.name),
                         );

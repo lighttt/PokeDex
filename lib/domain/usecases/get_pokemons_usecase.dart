@@ -17,7 +17,7 @@ class GetPokemonListUseCase implements UseCase<List<PokemonEntity>, NoParams> {
   /// The call methods helps to directly call a class function
   /// rather than pointing to specific part
   @override
-  Future<Either<Failure, UnmodifiableListView<PokemonModel>>> call(NoParams noParams) async {
+  Future<Either<Failure, UnmodifiableListView<PokemonEntity>>> call(NoParams noParams) async {
     return await repository.getPokemonList();
   }
 }

@@ -102,6 +102,12 @@ class PokemonDetailScreen extends StatelessWidget {
               child: Image.network(
                 selectedPokemon.imageUrl,
                 height: 200,
+                errorBuilder: (src, _, __) {
+                  return Image.asset(
+                    'assets/images/pokeball.png',
+                    height: 200,
+                  );
+                },
               ),
             ),
             Container(
