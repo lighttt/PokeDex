@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/pokemon_detail_screen.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/screens/pokemon_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class PokemonSearchDelegate extends SearchDelegate {
@@ -9,17 +9,11 @@ class PokemonSearchDelegate extends SearchDelegate {
     ThemeData themeData = Theme.of(context).copyWith(
       appBarTheme: AppBarTheme(
         elevation: 0,
+        toolbarTextStyle: TextStyle(
+          color: Colors.white
+        )
       ),
-      // inputDecorationTheme: InputDecorationTheme(
-      //     fillColor: Colors.green,
-      //     isDense: true,
-      //     focusedBorder: OutlineInputBorder(
-      //         borderRadius: BorderRadius.circular(20),
-      //         borderSide: BorderSide(
-      //           color: Colors.black,
-      //         )),
-      //     border: OutlineInputBorder(
-      //         borderSide: BorderSide(color: Colors.black)))
+
     );
     return themeData;
   }
@@ -71,6 +65,12 @@ class PokemonSearchDelegate extends SearchDelegate {
                           leading: Image.network(
                             pokemon.imageUrl,
                             height: 80,
+                            errorBuilder: (src, _, __) {
+                              return Image.asset(
+                                'assets/images/pokeball.png',
+                                height: 80,
+                              );
+                            },
                           ),
                           title: Text(pokemon.name),
                         );
@@ -110,6 +110,12 @@ class PokemonSearchDelegate extends SearchDelegate {
                           leading: Image.network(
                             pokemon.imageUrl,
                             height: 80,
+                            errorBuilder: (src, _, __) {
+                              return Image.asset(
+                                'assets/images/pokeball.png',
+                                height: 70,
+                              );
+                            },
                           ),
                           title: Text(pokemon.name),
                         );

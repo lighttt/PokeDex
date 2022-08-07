@@ -1,4 +1,6 @@
-class PokemonModel {
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
+
+class PokemonModel extends PokemonEntity {
   String id;
   String name;
   String description;

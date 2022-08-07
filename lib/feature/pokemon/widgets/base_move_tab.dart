@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/model/pokemon_model.dart';
+import 'package:pokedexapp/data/models/pokemon_model.dart';
 
-import '../../pokemon_utlis.dart';
+import '../../../core/utilities/pokemon_utlis.dart';
 
 class BaseMoveTab extends StatelessWidget {
   final PokemonModel pokemon;

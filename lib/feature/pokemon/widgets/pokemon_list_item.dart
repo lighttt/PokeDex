@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/model/pokemon_model.dart';
-import 'package:pokedexapp/screens/pokemon_detail_screen.dart';
+import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/feature/pokemon/screens/pokemon_detail_screen.dart';
 
-import '../pokemon_utlis.dart';
+import '../../../core/utilities/pokemon_utlis.dart';
 
 class PokemonListItem extends StatelessWidget {
   final PokemonModel pokemon;
+
   const PokemonListItem({Key key, this.pokemon}) : super(key: key);
 
   @override
@@ -79,6 +80,12 @@ class PokemonListItem extends StatelessWidget {
                         child: Image.network(
                           pokemon.imageUrl,
                           height: 100,
+                          errorBuilder: (src, _, __) {
+                            return Image.asset(
+                              'assets/images/pokeball.png',
+                              height: 70,
+                            );
+                          },
                         ),
                       ),
                     )

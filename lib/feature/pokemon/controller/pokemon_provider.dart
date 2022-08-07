@@ -1,24 +1,30 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pokedexapp/model/pokemon_model.dart';
+import 'package:pokedexapp/core/usecases/usecase.dart';
+import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/domain/usecases/get_pokemons_usecase.dart';
 
 class PokemonProvider with ChangeNotifier {
-  List<PokemonModel> _pokemonList = [];
+  final GetPokemonListUseCase getPokemonListUseCase;
 
-  List<PokemonModel> get pokemonList => _pokemonList;
+  UnmodifiableListView<PokemonModel> _pokemonList = UnmodifiableListView([]);
+
+  PokemonProvider({@required this.getPokemonListUseCase});
+
+  UnmodifiableListView<PokemonModel> get pokemonList => _pokemonList;
+
 
   Future<void> getPokemonData() async {
-    try {
-      final response = await http.get(Uri.parse(
-          'https://gist.githubusercontent.com/lighttt/20e03ef249cc9b3ab5496b777c6f066f/raw/b27d2dce021d3b1f906f47bdbf574ffba62c1ded/pokeapi.json'));
-      List<dynamic> responseList = jsonDecode(response.body);
-      _pokemonList = List<PokemonModel>.from(
-          responseList.map((pokemon) => PokemonModel.fromJson(pokemon)));
-    } catch (error) {
-      print(error);
-    }
+    final response = await getPokemonListUseCase.call(NoParams());
+    response.fold((failure) {
+     throw Error();
+    }, (pokemonList) {
+      _pokemonList = pokemonList;
+      notifyListeners();
+    });
   }
 
   PokemonModel getPokemonById(String id) {
