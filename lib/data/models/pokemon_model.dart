@@ -85,4 +85,32 @@ class PokemonModel extends PokemonEntity {
         evolvedFrom: json['evolvedFrom'],
         evolveLevel: json['reason']);
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['id'] = this.id;
+    data['imageurl'] = this.imageUrl;
+    data['xdescription'] = this.description;
+    data['height'] = this.height;
+    data['category'] = this.category;
+    data['weight'] = this.weight;
+    data['typeofpokemon'] = this.types;
+    data['weaknesses'] = this.weaknesses;
+    data['evolutions'] = this.evolutions;
+    data['abilities'] = this.abilities;
+    data['hp'] = this.hp;
+    data['attack'] = this.attack;
+    data['defense'] = this.defense;
+    data['special_attack'] = this.specialAttack;
+    data['special_defense'] = this.specialDefense;
+    data['speed'] = this.speed;
+    data['total'] = this.total;
+    data['male_percentage'] = this.malePercentage;
+    data['female_percentage'] = this.femalePercentage;
+    data['cycles'] = this.cycles;
+    data['egg_groups'] = this.eggGroups;
+    data['base_exp'] = this.baseExp;
+    return data;
+  }
 }
