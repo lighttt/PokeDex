@@ -19,8 +19,7 @@ class AboutTab extends StatelessWidget {
         ),
         Card(
           elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -41,8 +40,7 @@ class AboutTab extends StatelessWidget {
                     ),
                     Text(
                       pokemon.height,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ],
                 ),
@@ -61,8 +59,7 @@ class AboutTab extends StatelessWidget {
                     ),
                     Text(
                       pokemon.weight,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ],
                 ),
@@ -83,7 +80,7 @@ class AboutTab extends StatelessWidget {
                 color: Colors.black87,
               ),
             ),
-            SizedBox(width: 50),
+            SizedBox(width: 30),
             Row(
               children: [
                 Icon(
@@ -101,6 +98,7 @@ class AboutTab extends StatelessWidget {
                 )
               ],
             ),
+            SizedBox(width: 30),
             Row(
               children: [
                 Icon(FontAwesomeIcons.venus, color: Colors.pink),

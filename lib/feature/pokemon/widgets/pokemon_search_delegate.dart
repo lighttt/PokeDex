@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:pokedexapp/feature/pokemon/screens/pokemon_detail_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -7,13 +7,7 @@ class PokemonSearchDelegate extends SearchDelegate<String?> {
   @override
   ThemeData appBarTheme(BuildContext context) {
     ThemeData themeData = Theme.of(context).copyWith(
-      appBarTheme: const AppBarTheme(
-        elevation: 0,
-        toolbarTextStyle: TextStyle(
-          color: Colors.white
-        )
-      ),
-
+      appBarTheme: const AppBarTheme(elevation: 0, toolbarTextStyle: TextStyle(color: Colors.white)),
     );
     return themeData;
   }
@@ -50,8 +44,7 @@ class PokemonSearchDelegate extends SearchDelegate<String?> {
                       child: Text('The pokemon with \'$query\' doesnt exist'),
                     )
                   : ListView.separated(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
                       itemCount: searchResults.length,
                       itemBuilder: (ctx, index) {
                         final pokemon = searchResults[index];
@@ -95,8 +88,7 @@ class PokemonSearchDelegate extends SearchDelegate<String?> {
                       child: Text('The pokemon with \'$query\' doesnt exist'),
                     )
                   : ListView.separated(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
                       itemCount: searchResults.length,
                       itemBuilder: (ctx, index) {
                         final pokemon = searchResults[index];

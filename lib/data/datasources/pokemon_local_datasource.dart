@@ -1,12 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:pokedexapp/core/error/exceptions.dart';
-import 'package:pokedexapp/data/models/pokemon_model.dart';
-import 'package:pokedexapp/data/repositories/pokemon_repository_impl.dart';
-import 'package:pokedexapp/domain/repositories/pokemon_repository.dart';
-
 import 'package:pokedexapp/data/models/pokemon_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +16,7 @@ const CACHED_POKEMONS = 'CACHED_POKEMONS';
 class LocalPokemonDataSourceImpl implements LocalPokemonDataSource {
   final SharedPreferences sharedPreferences;
 
-  LocalPokemonDataSourceImpl({@required this.sharedPreferences});
+  LocalPokemonDataSourceImpl({required this.sharedPreferences});
 
   @override
   Future<UnmodifiableListView<PokemonModel>> getPokemonList() async {

@@ -7,7 +7,7 @@ class AppTheme {
         primaryColor: Colors.white,
         appBarTheme: AppBarTheme(
           elevation: 0,
-          color: Colors.blue,
+          color: Colors.white,
         ));
   }
 }

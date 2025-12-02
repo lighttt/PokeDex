@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/pokemon_list_item.dart';
 import 'package:provider/provider.dart';
 
@@ -21,10 +21,7 @@ class FavouriteScreen extends StatelessWidget {
               ? Center(child: Text('No favourites have been added'))
               : GridView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 4),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
                   itemCount: favourites.length,
                   itemBuilder: (ctx, index) {
                     final pokemon = favourites[index];

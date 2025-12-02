@@ -18,7 +18,7 @@ class PokemonEntity extends Equatable {
   final String malePercentage;
   final String femalePercentage;
   final String eggGroups;
-  final  String evolvedFrom;
+  final String evolvedFrom;
   final String cycles;
   final String baseExp;
   final List<String> weaknesses;
@@ -26,38 +26,39 @@ class PokemonEntity extends Equatable {
   final List<String> types;
   final List<String> abilities;
   final String evolveLevel;
-  final bool isFavourite = false;
+  final bool isFavourite;
 
   const PokemonEntity({
-    this.id,
-    this.name,
-    this.description,
-    this.category,
-    this.imageUrl,
-    this.height,
-    this.weight,
-    this.hp,
-    this.attack,
-    this.defense,
-    this.specialAttack,
-    this.specialDefense,
-    this.speed,
-    this.total,
-    this.malePercentage,
-    this.femalePercentage,
-    this.eggGroups,
-    this.evolvedFrom,
-    this.cycles,
-    this.baseExp,
-    this.weaknesses,
-    this.evolutions,
-    this.types,
-    this.abilities,
-    this.evolveLevel,
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.category,
+    required this.imageUrl,
+    required this.height,
+    required this.weight,
+    required this.hp,
+    required this.attack,
+    required this.defense,
+    required this.specialAttack,
+    required this.specialDefense,
+    required this.speed,
+    required this.total,
+    required this.malePercentage,
+    required this.femalePercentage,
+    required this.eggGroups,
+    required this.evolvedFrom,
+    required this.cycles,
+    required this.baseExp,
+    required this.weaknesses,
+    required this.evolutions,
+    required this.types,
+    required this.abilities,
+    required this.evolveLevel,
+    this.isFavourite = false,
   });
 
   @override
-  List<Object> get props{
+  List<Object> get props {
     return [
       id,
       name,
@@ -84,6 +85,7 @@ class PokemonEntity extends Equatable {
       types,
       abilities,
       evolveLevel,
+      isFavourite,
     ];
   }
 

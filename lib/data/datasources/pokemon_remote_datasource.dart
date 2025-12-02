@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:pokedexapp/core/error/exceptions.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +9,7 @@ class RemotePokemonDataSourceImpl implements RemotePokemonDataSource {
 
  final http.Client httpClient;
 
- RemotePokemonDataSourceImpl({@required this.httpClient});
+ RemotePokemonDataSourceImpl({required this.httpClient});
 
   @override
   Future<String> getPokemonList() async {

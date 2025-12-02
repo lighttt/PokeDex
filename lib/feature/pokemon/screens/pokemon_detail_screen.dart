@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedexapp/core/constants/app_images.dart';
 import 'package:pokedexapp/core/utilities/pokemon_utlis.dart';
-import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/about_tab.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/base_move_tab.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/evolution_tab.dart';
@@ -90,7 +91,7 @@ class PokemonDetailScreen extends StatelessWidget {
                 height: 200,
                 errorBuilder: (src, _, __) {
                   return Image.asset(
-                    'assets/images/pokeball.png',
+                    AppImages.pokeBall,
                     height: 200,
                   );
                 },

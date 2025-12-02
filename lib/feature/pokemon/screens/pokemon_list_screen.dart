@@ -1,8 +1,8 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/core/network/network_info.dart';
 import 'package:pokedexapp/core/services/service_locator.dart';
-import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:pokedexapp/feature/pokemon/screens/favourite_screen.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/pokemon_list_item.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/pokemon_search_delegate.dart';
@@ -14,25 +14,20 @@ class PokemonListScreen extends StatefulWidget {
 }
 
 class _PokemonListScreenState extends State<PokemonListScreen> {
-  bool _isInit = true;
-  Future _fetchData;
+  late Future<void> _fetchData;
 
   Future<void> _getPokemonData() async {
     try {
-      await Provider.of<PokemonProvider>(context, listen: false)
-          .getPokemonData();
+      await Provider.of<PokemonProvider>(context, listen: false).getPokemonData();
     } catch (error) {
-      print(error);
+      debugPrint(error.toString());
     }
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_isInit) {
-      _fetchData = _getPokemonData();
-    }
-    _isInit = false;
+  void initState() {
+    super.initState();
+    _fetchData = _getPokemonData();
   }
 
   @override
@@ -46,70 +41,75 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
         elevation: 0,
         centerTitle: false,
         actions: [
-          StreamBuilder(
+          StreamBuilder<ConnectivityResult>(
               stream: locator<NetworkInfo>().connectionStream,
-              builder: (ctx, AsyncSnapshot<DataConnectionStatus> snapshot) {
-                return snapshot.connectionState == ConnectionState.waiting
-                    ? CircularProgressIndicator()
-                    : Icon(
-                        snapshot.data == DataConnectionStatus.connected
-                            ? Icons.wifi
-                            : Icons.signal_wifi_bad_outlined,
-                        size: 30,
-                        color: snapshot.data == DataConnectionStatus.connected
-                            ? Colors.green.shade900
-                            : Colors.red.shade700,
-                      );
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  );
+                }
+                final connected = snapshot.data != ConnectivityResult.none;
+                return Icon(
+                  connected ? Icons.wifi : Icons.signal_wifi_bad_outlined,
+                  size: 30,
+                  color: connected ? Colors.green : Colors.red.shade700,
+                );
               }),
+          SizedBox(width: 10),
           IconButton(
-              icon: Icon(
-                Icons.search,
-                size: 30,
-              ),
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.search, size: 30),
               onPressed: () {
                 showSearch(context: context, delegate: PokemonSearchDelegate());
               }),
           IconButton(
-              icon: Icon(Icons.favorite_border, size: 30),
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.favorite_border, size: 30),
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx) => FavouriteScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const FavouriteScreen()));
               })
         ],
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<void>(
         future: _fetchData,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return snapshot.connectionState == ConnectionState.waiting
-              ? Center(child: CircularProgressIndicator())
-              : snapshot.hasError
-                  ? Center(child: Text('Sorry data could not be loaded'))
-                  : Consumer<PokemonProvider>(
-                      builder: (ctx, data, child) {
-                        return RefreshIndicator(
-                            triggerMode: RefreshIndicatorTriggerMode.onEdge,
-                            onRefresh: () async {
-                              setState(() {
-                                _fetchData = _getPokemonData();
-                              });
-                            },
-                            child: GridView.builder(
-                              padding: EdgeInsets.symmetric(horizontal: 4),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 10,
-                                      crossAxisSpacing: 10),
-                              itemCount: 50,
-                              itemBuilder: (ctx, index) {
-                                final pokemon = data.pokemonList[index];
-                                return PokemonListItem(
-                                  pokemon: pokemon,
-                                );
-                              },
-                            ));
-                      },
-                    );
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return const Center(child: Text('Sorry data could not be loaded'));
+          }
+          return Consumer<PokemonProvider>(
+            builder: (ctx, data, child) {
+              final pokemonList = data.pokemonList;
+              if (pokemonList.isEmpty) {
+                return const Center(child: Text('No Pokemon found'));
+              }
+              return RefreshIndicator(
+                  triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                  onRefresh: () async {
+                    setState(() {
+                      _fetchData = _getPokemonData();
+                    });
+                    await _fetchData;
+                  },
+                  child: GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
+                    itemCount: pokemonList.length,
+                    itemBuilder: (ctx, index) {
+                      final pokemon = pokemonList[index];
+                      return PokemonListItem(
+                        pokemon: pokemon,
+                      );
+                    },
+                  ));
+            },
+          );
         },
       ),
     );

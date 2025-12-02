@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:meta/meta.dart';
 import 'package:pokedexapp/core/error/exceptions.dart';
 import 'package:pokedexapp/core/error/failures.dart';
 import 'package:pokedexapp/core/network/network_info.dart';
@@ -11,16 +10,15 @@ import 'package:pokedexapp/data/datasources/pokemon_remote_datasource.dart';
 import 'package:pokedexapp/data/models/pokemon_model.dart';
 import 'package:pokedexapp/domain/repositories/pokemon_repository.dart';
 
-
 class PokemonRepositoryImpl implements PokemonRepository {
   final RemotePokemonDataSource remoteDataSource;
   final LocalPokemonDataSource localDataSource;
   final NetworkInfo networkInfo;
 
   PokemonRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDataSource,
-    @required this.networkInfo,
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.networkInfo,
   });
 
   /// Function to implement random or concrete

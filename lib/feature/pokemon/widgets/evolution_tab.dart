@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/data/models/pokemon_model.dart';
-import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:provider/provider.dart';
+
+import '../../../core/constants/app_images.dart';
 
 class EvolutionTab extends StatefulWidget {
   final PokemonModel pokemonModel;
@@ -23,13 +25,10 @@ class _EvolutionTabState extends State<EvolutionTab> {
 
   void _loadEvolutions() {
     final provider = Provider.of<PokemonProvider>(context, listen: false);
-    _evolutions = widget.pokemonModel.evolutions
-        .map((id) => provider.getPokemonById(id))
-        .toList();
+    _evolutions = widget.pokemonModel.evolutions.map((id) => provider.getPokemonById(id)).toList();
   }
 
-  Widget _buildEvolution(
-      PokemonModel firstPokemon, PokemonModel secondPokemon) {
+  Widget _buildEvolution(PokemonModel firstPokemon, PokemonModel secondPokemon) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -40,7 +39,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
               height: 100,
               errorBuilder: (src, _, __) {
                 return Image.asset(
-                  'assets/images/pokeball.png',
+                  AppImages.pokeBall,
                   height: 80,
                 );
               },
@@ -67,7 +66,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
               height: 100,
               errorBuilder: (src, _, __) {
                 return Image.asset(
-                  'assets/images/pokeball.png',
+                  AppImages.pokeBall,
                   height: 80,
                 );
               },
@@ -91,8 +90,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
       ];
     }
     return Iterable<int>.generate(_evolutions.length - 1)
-        .map((index) =>
-            _buildEvolution(_evolutions[index], _evolutions[index + 1]))
+        .map((index) => _buildEvolution(_evolutions[index], _evolutions[index + 1]))
         .expand((widget) => [
               widget,
               const Divider(
