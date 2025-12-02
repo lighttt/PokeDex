@@ -6,7 +6,7 @@ class PokemonUtils {
     if (pokemon.types.contains('Grass') || pokemon.types.contains('Bug')) {
       return Colors.lightGreen.shade600;
     } else if (pokemon.types.contains('Fire')) {
-      return Colors.redAccent;
+      return Colors.red;
     } else if (pokemon.types.contains('Water')) {
       return Colors.lightBlue.shade300;
     } else if (pokemon.types.contains('Electric')) {

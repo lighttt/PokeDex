@@ -14,8 +14,7 @@ class PokemonDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedPokemon =
-        Provider.of<PokemonProvider>(context, listen: false).getPokemonById(id);
+    final selectedPokemon = Provider.of<PokemonProvider>(context, listen: false).getPokemonById(id);
     return Scaffold(
       backgroundColor: PokemonUtils.getColor(selectedPokemon),
       appBar: AppBar(
@@ -29,11 +28,11 @@ class PokemonDetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8.0),
                 child: IconButton(
                   icon: Icon(
-                    selectedPokemon.isFavourite
-                        ? Icons.favorite
-                        : Icons.favorite_border,
+                    selectedPokemon.isFavourite ? Icons.favorite : Icons.favorite_border,
                     color: selectedPokemon.isFavourite
-                        ? Colors.red.shade200
+                        ? selectedPokemon.types.contains('Fire')
+                            ? Colors.white
+                            : Colors.red
                         : Colors.white,
                   ),
                   iconSize: 28,
@@ -61,17 +60,11 @@ class PokemonDetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         selectedPokemon.name,
-                        style: TextStyle(
-                            fontSize: 32,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 32, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         selectedPokemon.id,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -82,15 +75,12 @@ class PokemonDetailScreen extends StatelessWidget {
                     children: selectedPokemon.types
                         .map((type) => Container(
                               margin: EdgeInsets.symmetric(horizontal: 4),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 4),
+                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                               decoration: BoxDecoration(
                                   color: PokemonUtils.getColorType(type),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white)),
-                              child: Text(type,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16)),
+                              child: Text(type, style: TextStyle(color: Colors.white, fontSize: 16)),
                             ))
                         .toList(),
                   ),
@@ -106,15 +96,11 @@ class PokemonDetailScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20))),
+                  color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
               child: TabBar(
                 labelColor: Colors.black87,
                 unselectedLabelColor: Colors.grey.shade700,
-                labelStyle:
-                    TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                 tabs: [
                   Tab(
                     text: 'About',
@@ -134,21 +120,18 @@ class PokemonDetailScreen extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     SingleChildScrollView(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                       child: AboutTab(
                         pokemon: selectedPokemon,
                       ),
                     ),
                     SingleChildScrollView(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                         child: EvolutionTab(
                           pokemonModel: selectedPokemon,
                         )),
                     SingleChildScrollView(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                         child: BaseMoveTab(
                           pokemon: selectedPokemon,
                         )),

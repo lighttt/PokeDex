@@ -31,8 +31,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   http: ^1.2.2
   provider: ^6.1.2
-  # 10.10.0+ requires Dart >=3.9, so pin to latest compatible with Dart 3.5
-  font_awesome_flutter: ^10.9.0
+  # Pin to pre-withValues version for older Flutter Color API support.
+  font_awesome_flutter: 10.4.0
 
 
 dev_dependencies:
