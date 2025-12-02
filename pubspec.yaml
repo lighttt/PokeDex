@@ -18,22 +18,23 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.5.3 <4.0.0"
-  flutter: ">=3.24.0"
+  sdk: '>=3.5.3 <4.0.0'
+  flutter: '>=3.24.0'
 
 dependencies:
   flutter:
     sdk: flutter
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   http: ^1.2.2
   provider: ^6.1.2
-  # Pin to pre-withValues version for older Flutter Color API support.
+  equatable: ^2.0.7
+  dartz: ^0.10.1
+  connectivity_plus: ^7.0.0
+  shared_preferences: ^2.5.3
+  get_it: ^9.1.1
   font_awesome_flutter: 10.4.0
-
 
 dev_dependencies:
   flutter_test:
@@ -44,16 +45,14 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/pokeball.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

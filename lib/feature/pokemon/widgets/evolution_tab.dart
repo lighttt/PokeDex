@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/model/pokemon_model.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants/app_images.dart';
+
 class EvolutionTab extends StatefulWidget {
-  final PokemonModel pokemonModel;
+  final PokemonEntity pokemonModel;
 
   const EvolutionTab({Key? key, required this.pokemonModel}) : super(key: key);
 
@@ -13,7 +15,7 @@ class EvolutionTab extends StatefulWidget {
 }
 
 class _EvolutionTabState extends State<EvolutionTab> {
-  List<PokemonModel> _evolutions = [];
+  List<PokemonEntity> _evolutions = [];
 
   @override
   void didChangeDependencies() {
@@ -23,13 +25,10 @@ class _EvolutionTabState extends State<EvolutionTab> {
 
   void _loadEvolutions() {
     final provider = Provider.of<PokemonProvider>(context, listen: false);
-    _evolutions = widget.pokemonModel.evolutions
-        .map((id) => provider.getPokemonById(id))
-        .toList();
+    _evolutions = widget.pokemonModel.evolutions.map((id) => provider.getPokemonById(id)).toList();
   }
 
-  Widget _buildEvolution(
-      PokemonModel firstPokemon, PokemonModel secondPokemon) {
+  Widget _buildEvolution(PokemonEntity firstPokemon, PokemonEntity secondPokemon) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -38,6 +37,12 @@ class _EvolutionTabState extends State<EvolutionTab> {
             Image.network(
               firstPokemon.imageUrl,
               height: 100,
+              errorBuilder: (src, _, __) {
+                return Image.asset(
+                  AppImages.pokeBall,
+                  height: 80,
+                );
+              },
             ),
             Text(
               firstPokemon.name,
@@ -59,6 +64,12 @@ class _EvolutionTabState extends State<EvolutionTab> {
             Image.network(
               secondPokemon.imageUrl,
               height: 100,
+              errorBuilder: (src, _, __) {
+                return Image.asset(
+                  AppImages.pokeBall,
+                  height: 80,
+                );
+              },
             ),
             Text(
               secondPokemon.name,
@@ -79,8 +90,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
       ];
     }
     return Iterable<int>.generate(_evolutions.length - 1)
-        .map((index) =>
-            _buildEvolution(_evolutions[index], _evolutions[index + 1]))
+        .map((index) => _buildEvolution(_evolutions[index], _evolutions[index + 1]))
         .expand((widget) => [
               widget,
               const Divider(

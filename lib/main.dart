@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/pokemon_list_screen.dart';
+import 'package:pokedexapp/core/theme/app_theme.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
+import 'package:pokedexapp/feature/pokemon/screens/pokemon_list_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(const PokemonApp());
+import 'core/services/service_locator.dart' as di;
+import 'core/services/service_locator.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+  runApp(PokemonApp());
+}
 
 class PokemonApp extends StatelessWidget {
   const PokemonApp({Key? key}) : super(key: key);
@@ -11,10 +19,10 @@ class PokemonApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx) => PokemonProvider(),
+      create: (ctx) => locator<PokemonProvider>(),
       child: MaterialApp(
-        theme: ThemeData(primaryColor: Colors.white),
-        home: const PokemonListScreen(),
+        theme: AppTheme.light,
+        home: PokemonListScreen(),
       ),
     );
   }

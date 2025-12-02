@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/providers/pokemon_provider.dart';
-import 'package:pokedexapp/screens/tabs/about_tab.dart';
-import 'package:pokedexapp/screens/tabs/evolution_tab.dart';
+import 'package:pokedexapp/core/constants/app_images.dart';
+import 'package:pokedexapp/core/utilities/pokemon_utlis.dart';
+import 'package:pokedexapp/domain/entities/pokemon_type.dart';
+import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/about_tab.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/base_move_tab.dart';
+import 'package:pokedexapp/feature/pokemon/widgets/evolution_tab.dart';
 import 'package:provider/provider.dart';
-
-import '../pokemon_utlis.dart';
-import 'tabs/base_move_tab.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
   final String id;
@@ -14,7 +15,8 @@ class PokemonDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedPokemon = Provider.of<PokemonProvider>(context, listen: false).getPokemonById(id);
+    final pokemonProvider = context.watch<PokemonProvider>();
+    final selectedPokemon = pokemonProvider.getPokemonById(id);
     return Scaffold(
       backgroundColor: PokemonUtils.getColor(selectedPokemon),
       appBar: AppBar(
@@ -22,26 +24,22 @@ class PokemonDetailScreen extends StatelessWidget {
         backgroundColor: PokemonUtils.getColor(selectedPokemon),
         iconTheme: IconThemeData(color: Colors.white),
         actions: [
-          Consumer<PokemonProvider>(
-            builder: (BuildContext context, data, _) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: IconButton(
-                  icon: Icon(
-                    selectedPokemon.isFavourite ? Icons.favorite : Icons.favorite_border,
-                    color: selectedPokemon.isFavourite
-                        ? selectedPokemon.types.contains('Fire')
-                            ? Colors.white
-                            : Colors.red
-                        : Colors.white,
-                  ),
-                  iconSize: 28,
-                  onPressed: () {
-                    data.toggleFavourite(selectedPokemon.id);
-                  },
-                ),
-              );
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: Icon(
+                selectedPokemon.isFavourite ? Icons.favorite : Icons.favorite_border,
+                color: selectedPokemon.isFavourite
+                    ? selectedPokemon.types.contains('Fire')
+                        ? Colors.white
+                        : Colors.red
+                    : Colors.white,
+              ),
+              iconSize: 28,
+              onPressed: () {
+                pokemonProvider.toggleFavourite(selectedPokemon.id);
+              },
+            ),
           ),
         ],
       ),
@@ -74,13 +72,13 @@ class PokemonDetailScreen extends StatelessWidget {
                   Row(
                     children: selectedPokemon.types
                         .map((type) => Container(
-                              margin: EdgeInsets.symmetric(horizontal: 4),
-                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                               decoration: BoxDecoration(
                                   color: PokemonUtils.getColorType(type),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white)),
-                              child: Text(type, style: TextStyle(color: Colors.white, fontSize: 16)),
+                              child: Text(type.label, style: const TextStyle(color: Colors.white, fontSize: 16)),
                             ))
                         .toList(),
                   ),
@@ -92,6 +90,12 @@ class PokemonDetailScreen extends StatelessWidget {
               child: Image.network(
                 selectedPokemon.imageUrl,
                 height: 200,
+                errorBuilder: (src, _, __) {
+                  return Image.asset(
+                    AppImages.pokeBall,
+                    height: 200,
+                  );
+                },
               ),
             ),
             Container(

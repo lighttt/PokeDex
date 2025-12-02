@@ -1,4 +1,7 @@
-class PokemonModel {
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
+import 'package:pokedexapp/domain/entities/pokemon_type.dart';
+
+class PokemonDTO {
   final String id;
   final String name;
   final String description;
@@ -21,12 +24,11 @@ class PokemonModel {
   final String baseExp;
   final List<String> weaknesses;
   final List<String> evolutions;
-  final List<String> types;
+  final List<PokemonType> types;
   final List<String> abilities;
   final String evolveLevel;
-  bool isFavourite;
 
-  PokemonModel({
+  const PokemonDTO({
     required this.id,
     required this.name,
     required this.description,
@@ -52,16 +54,16 @@ class PokemonModel {
     required this.types,
     required this.abilities,
     required this.evolveLevel,
-    this.isFavourite = false,
   });
 
-  factory PokemonModel.fromJson(Map<String, dynamic> json) {
+  factory PokemonDTO.fromJson(Map<String, dynamic> json) {
     String _string(String key) => (json[key] ?? '').toString();
     int _int(String key) => int.tryParse(json[key]?.toString() ?? '') ?? 0;
-    List<String> _list(String key) =>
-        (json[key] as List?)?.map((value) => value.toString()).toList() ?? [];
+    List<String> _list(String key) => (json[key] as List?)?.map((value) => value.toString()).toList() ?? [];
+    List<PokemonType> _typeList(String key) =>
+        (json[key] as List?)?.map((value) => PokemonTypeX.fromString(value.toString())).toList() ?? [];
 
-    return PokemonModel(
+    return PokemonDTO(
       id: _string('id'),
       description: _string('xdescription'),
       name: _string('name'),
@@ -82,11 +84,42 @@ class PokemonModel {
       weaknesses: _list('weaknesses'),
       abilities: _list('abilities'),
       category: _string('category'),
-      types: _list('typeofpokemon'),
+      types: _typeList('typeofpokemon'),
       cycles: _string('cycles'),
       eggGroups: _string('egg_groups'),
       evolvedFrom: _string('evolvedFrom'),
       evolveLevel: _string('reason'),
+    );
+  }
+
+  PokemonEntity toEntity({required bool isFavourite}) {
+    return PokemonEntity(
+      id: id,
+      name: name,
+      description: description,
+      category: category,
+      imageUrl: imageUrl,
+      height: height,
+      weight: weight,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+      total: total,
+      malePercentage: malePercentage,
+      femalePercentage: femalePercentage,
+      eggGroups: eggGroups,
+      evolvedFrom: evolvedFrom,
+      cycles: cycles,
+      baseExp: baseExp,
+      weaknesses: weaknesses,
+      evolutions: evolutions,
+      types: types,
+      abilities: abilities,
+      evolveLevel: evolveLevel,
+      isFavourite: isFavourite,
     );
   }
 }
