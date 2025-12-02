@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
 
 import '../../../core/utilities/pokemon_utlis.dart';
 
 class BaseMoveTab extends StatelessWidget {
-  final PokemonModel pokemon;
+  final PokemonEntity pokemon;
   const BaseMoveTab({Key? key, required this.pokemon}) : super(key: key);
 
   Widget _buildItem(String title, int value) {

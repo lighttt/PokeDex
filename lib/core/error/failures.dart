@@ -4,16 +4,19 @@ import 'package:equatable/equatable.dart';
 /// exceptions which can be of any dynamic types
 /// Equatable helps to equate any objects for easy comparision
 abstract class Failure extends Equatable {
-  Failure([List properties = const <dynamic>[]]);
+  final String message;
+  const Failure({this.message = 'Something went wrong'});
 }
 
 /// General Failures
 class ServerFailure extends Failure {
+  const ServerFailure({String message = 'Server Failure'}) : super(message: message);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [message];
 }
 
 class CacheFailure extends Failure {
+  const CacheFailure({String message = 'Cache Failure'}) : super(message: message);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [message];
 }

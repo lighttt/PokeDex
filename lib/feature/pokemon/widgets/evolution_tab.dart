@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
 import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_images.dart';
 
 class EvolutionTab extends StatefulWidget {
-  final PokemonModel pokemonModel;
+  final PokemonEntity pokemonModel;
 
   const EvolutionTab({Key? key, required this.pokemonModel}) : super(key: key);
 
@@ -15,7 +15,7 @@ class EvolutionTab extends StatefulWidget {
 }
 
 class _EvolutionTabState extends State<EvolutionTab> {
-  List<PokemonModel> _evolutions = [];
+  List<PokemonEntity> _evolutions = [];
 
   @override
   void didChangeDependencies() {
@@ -28,7 +28,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
     _evolutions = widget.pokemonModel.evolutions.map((id) => provider.getPokemonById(id)).toList();
   }
 
-  Widget _buildEvolution(PokemonModel firstPokemon, PokemonModel secondPokemon) {
+  Widget _buildEvolution(PokemonEntity firstPokemon, PokemonEntity secondPokemon) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [

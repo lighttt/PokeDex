@@ -76,10 +76,11 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
       body: FutureBuilder<void>(
         future: _fetchData,
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          final provider = context.watch<PokemonProvider>();
+          if (snapshot.connectionState == ConnectionState.waiting || provider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (snapshot.hasError) {
+          if (provider.status == PokemonStatus.failure) {
             return const Center(child: Text('Sorry data could not be loaded'));
           }
           return Consumer<PokemonProvider>(

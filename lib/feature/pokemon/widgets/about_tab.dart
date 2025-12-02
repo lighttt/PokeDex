@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
 
 class AboutTab extends StatelessWidget {
-  final PokemonModel pokemon;
+  final PokemonEntity pokemon;
   const AboutTab({Key? key, required this.pokemon}) : super(key: key);
 
   @override

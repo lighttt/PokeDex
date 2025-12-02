@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
+import 'package:pokedexapp/domain/entities/pokemon_type.dart';
 import 'package:pokedexapp/feature/pokemon/screens/pokemon_detail_screen.dart';
 
 import '../../../core/utilities/pokemon_utlis.dart';
 
 class PokemonListItem extends StatelessWidget {
-  final PokemonModel pokemon;
+  final PokemonEntity pokemon;
   const PokemonListItem({Key? key, required this.pokemon}) : super(key: key);
 
   @override
@@ -58,16 +59,13 @@ class PokemonListItem extends StatelessWidget {
                       child: Column(
                         children: pokemon.types
                             .map((type) => Container(
-                                  margin: EdgeInsets.symmetric(vertical: 4),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 4, horizontal: 4),
+                                  margin: const EdgeInsets.symmetric(vertical: 4),
+                                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                                   decoration: BoxDecoration(
                                       color: PokemonUtils.getColorType(type),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: Colors.white)),
-                                  child: Text(type,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12)),
+                                  child: Text(type.label, style: const TextStyle(color: Colors.white, fontSize: 12)),
                                 ))
                             .toList(),
                       ),

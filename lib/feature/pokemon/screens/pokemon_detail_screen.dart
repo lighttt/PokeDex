@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexapp/core/constants/app_images.dart';
 import 'package:pokedexapp/core/utilities/pokemon_utlis.dart';
+import 'package:pokedexapp/domain/entities/pokemon_type.dart';
 import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/about_tab.dart';
 import 'package:pokedexapp/feature/pokemon/widgets/base_move_tab.dart';
@@ -71,13 +72,13 @@ class PokemonDetailScreen extends StatelessWidget {
                   Row(
                     children: selectedPokemon.types
                         .map((type) => Container(
-                              margin: EdgeInsets.symmetric(horizontal: 4),
-                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                               decoration: BoxDecoration(
                                   color: PokemonUtils.getColorType(type),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white)),
-                              child: Text(type, style: TextStyle(color: Colors.white, fontSize: 16)),
+                              child: Text(type.label, style: const TextStyle(color: Colors.white, fontSize: 16)),
                             ))
                         .toList(),
                   ),

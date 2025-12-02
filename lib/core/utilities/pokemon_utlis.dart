@@ -1,56 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexapp/data/models/pokemon_model.dart';
+import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
+import 'package:pokedexapp/domain/entities/pokemon_type.dart';
 
 class PokemonUtils {
-  static Color getColor(PokemonModel pokemon) {
-    if (pokemon.types.contains('Grass') || pokemon.types.contains('Bug')) {
-      return Colors.lightGreen.shade600;
-    } else if (pokemon.types.contains('Fire')) {
-      return Colors.red;
-    } else if (pokemon.types.contains('Water')) {
-      return Colors.lightBlue.shade300;
-    } else if (pokemon.types.contains('Electric')) {
-      return Colors.yellow.shade700;
-    } else if (pokemon.types.contains('Ice')) {
-      return Colors.cyan.shade300;
-    } else if (pokemon.types.contains('Flying')) {
-      return Colors.purpleAccent;
-    } else if (pokemon.types.contains('Fighting')) {
-      return Colors.red.shade700;
-    } else if (pokemon.types.contains('Poison')) {
-      return Colors.deepPurple;
-    } else if (pokemon.types.contains('Ground')) {
-      return Colors.brown.shade200;
-    } else if (pokemon.types.contains('Fairy')) {
-      return Colors.pink.shade200;
-    } else {
-      return Colors.blueGrey.shade400;
-    }
+  static Color getColor(PokemonEntity pokemon) {
+    return pokemon.types.map(getColorType).firstOrNull ?? Colors.blueGrey.shade400;
   }
 
-  static Color getColorType(String type) {
-    if (type == 'Grass' || type == 'Bug') {
-      return Colors.lightGreen.shade600;
-    } else if (type == 'Fire') {
-      return Colors.redAccent;
-    } else if (type == 'Water') {
-      return Colors.lightBlue.shade300;
-    } else if (type == 'Electric') {
-      return Colors.yellow.shade700;
-    } else if (type == 'Ice') {
-      return Colors.cyan.shade300;
-    } else if (type == 'Flying') {
-      return Colors.purpleAccent;
-    } else if (type == 'Fighting') {
-      return Colors.red.shade700;
-    } else if (type == 'Poison') {
-      return Colors.deepPurple;
-    } else if (type == 'Ground') {
-      return Colors.brown.shade200;
-    } else if (type == 'Fairy') {
-      return Colors.pink.shade200;
-    } else {
-      return Colors.blueGrey.shade400;
+  static Color getColorType(PokemonType type) {
+    switch (type) {
+      case PokemonType.grass:
+      case PokemonType.bug:
+        return Colors.lightGreen.shade600;
+      case PokemonType.fire:
+        return Colors.redAccent;
+      case PokemonType.water:
+        return Colors.lightBlue.shade300;
+      case PokemonType.electric:
+        return Colors.yellow.shade700;
+      case PokemonType.ice:
+        return Colors.cyan.shade300;
+      case PokemonType.flying:
+        return Colors.purpleAccent;
+      case PokemonType.fighting:
+        return Colors.red.shade700;
+      case PokemonType.poison:
+        return Colors.deepPurple;
+      case PokemonType.ground:
+        return Colors.brown.shade200;
+      case PokemonType.fairy:
+        return Colors.pink.shade200;
+      case PokemonType.rock:
+        return Colors.orange.shade700;
+      case PokemonType.psychic:
+        return Colors.pink.shade400;
+      case PokemonType.dark:
+        return Colors.brown.shade700;
+      case PokemonType.dragon:
+        return Colors.indigo;
+      case PokemonType.ghost:
+        return Colors.deepPurple.shade700;
+      case PokemonType.steel:
+        return Colors.blueGrey;
+      case PokemonType.normal:
+        return Colors.grey;
+      case PokemonType.unknown:
+        return Colors.blueGrey.shade400;
     }
   }
 }

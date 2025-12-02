@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:pokedexapp/domain/entities/pokemon_type.dart';
+
 class PokemonEntity extends Equatable {
   final String id;
   final String name;
@@ -23,7 +25,7 @@ class PokemonEntity extends Equatable {
   final String baseExp;
   final List<String> weaknesses;
   final List<String> evolutions;
-  final List<String> types;
+  final List<PokemonType> types;
   final List<String> abilities;
   final String evolveLevel;
   final bool isFavourite;
@@ -56,6 +58,39 @@ class PokemonEntity extends Equatable {
     required this.evolveLevel,
     this.isFavourite = false,
   });
+
+  PokemonEntity copyWith({
+    bool? isFavourite,
+  }) {
+    return PokemonEntity(
+      id: id,
+      name: name,
+      description: description,
+      category: category,
+      imageUrl: imageUrl,
+      height: height,
+      weight: weight,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+      total: total,
+      malePercentage: malePercentage,
+      femalePercentage: femalePercentage,
+      eggGroups: eggGroups,
+      evolvedFrom: evolvedFrom,
+      cycles: cycles,
+      baseExp: baseExp,
+      weaknesses: weaknesses,
+      evolutions: evolutions,
+      types: types,
+      abilities: abilities,
+      evolveLevel: evolveLevel,
+      isFavourite: isFavourite ?? this.isFavourite,
+    );
+  }
 
   @override
   List<Object> get props {

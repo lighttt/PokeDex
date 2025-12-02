@@ -7,6 +7,7 @@ import 'package:pokedexapp/data/datasources/pokemon_remote_datasource.dart';
 import 'package:pokedexapp/data/repositories/pokemon_repository_impl.dart';
 import 'package:pokedexapp/domain/repositories/pokemon_repository.dart';
 import 'package:pokedexapp/domain/usecases/get_pokemons_usecase.dart';
+import 'package:pokedexapp/domain/usecases/save_favourites_usecase.dart';
 import 'package:pokedexapp/feature/pokemon/controller/pokemon_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,10 +16,14 @@ final locator = GetIt.instance;
 
 Future<void> init() async {
   //! Features
-  locator.registerFactory(() => PokemonProvider(getPokemonListUseCase: locator()));
+  locator.registerFactory(() => PokemonProvider(
+        getPokemonListUseCase: locator(),
+        saveFavouriteIdsUseCase: locator(),
+      ));
 
   // Use cases
   locator.registerLazySingleton(() => GetPokemonListUseCase(repository: locator()));
+  locator.registerLazySingleton(() => SaveFavouriteIdsUseCase(repository: locator()));
 
   // Repository
   locator.registerLazySingleton<PokemonRepository>(() => PokemonRepositoryImpl(
