@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class EvolutionTab extends StatefulWidget {
   final PokemonModel pokemonModel;
 
-  const EvolutionTab({Key key, this.pokemonModel}) : super(key: key);
+  const EvolutionTab({Key? key, required this.pokemonModel}) : super(key: key);
 
   @override
   _EvolutionTabState createState() => _EvolutionTabState();
@@ -18,12 +18,14 @@ class _EvolutionTabState extends State<EvolutionTab> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final evolutions = widget.pokemonModel.evolutions;
-    evolutions.forEach((id) {
-      final pokemon = Provider.of<PokemonProvider>(context, listen: false)
-          .getPokemonById(id);
-      _evolutions.add(pokemon);
-    });
+    _loadEvolutions();
+  }
+
+  void _loadEvolutions() {
+    final provider = Provider.of<PokemonProvider>(context, listen: false);
+    _evolutions = widget.pokemonModel.evolutions
+        .map((id) => provider.getPokemonById(id))
+        .toList();
   }
 
   Widget _buildEvolution(
@@ -71,7 +73,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
   List<Widget> _buildEvolutionList() {
     if (_evolutions.length < 2) {
       return [
-        Center(
+        const Center(
           child: Text('No Evolutions available'),
         )
       ];
@@ -81,7 +83,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
             _buildEvolution(_evolutions[index], _evolutions[index + 1]))
         .expand((widget) => [
               widget,
-              Divider(
+              const Divider(
                 thickness: 1.2,
               )
             ])

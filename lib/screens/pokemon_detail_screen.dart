@@ -10,7 +10,7 @@ import 'tabs/base_move_tab.dart';
 class PokemonDetailScreen extends StatelessWidget {
   final String id;
 
-  const PokemonDetailScreen({Key key, this.id}) : super(key: key);
+  const PokemonDetailScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class PokemonDetailScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
         actions: [
           Consumer<PokemonProvider>(
-            builder: (BuildContext context, data, Widget child) {
+            builder: (BuildContext context, data, _) {
               return Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: IconButton(

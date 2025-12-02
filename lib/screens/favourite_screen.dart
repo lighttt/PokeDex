@@ -4,7 +4,7 @@ import 'package:pokedexapp/screens/pokemon_list_item.dart';
 import 'package:provider/provider.dart';
 
 class FavouriteScreen extends StatelessWidget {
-  const FavouriteScreen({Key key}) : super(key: key);
+  const FavouriteScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
