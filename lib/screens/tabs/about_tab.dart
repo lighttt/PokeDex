@@ -4,7 +4,7 @@ import 'package:pokedexapp/model/pokemon_model.dart';
 
 class AboutTab extends StatelessWidget {
   final PokemonModel pokemon;
-  const AboutTab({Key key, this.pokemon}) : super(key: key);
+  const AboutTab({Key? key, required this.pokemon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

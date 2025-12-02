@@ -13,11 +13,17 @@ class PokemonProvider with ChangeNotifier {
     try {
       final response = await http.get(Uri.parse(
           'https://gist.githubusercontent.com/lighttt/20e03ef249cc9b3ab5496b777c6f066f/raw/b27d2dce021d3b1f906f47bdbf574ffba62c1ded/pokeapi.json'));
-      List<dynamic> responseList = jsonDecode(response.body);
-      _pokemonList = List<PokemonModel>.from(
-          responseList.map((pokemon) => PokemonModel.fromJson(pokemon)));
+      if (response.statusCode != 200) {
+        throw Exception('Failed to load Pokemon data (${response.statusCode})');
+      }
+      final responseList = jsonDecode(response.body) as List<dynamic>;
+      _pokemonList = responseList
+          .map((pokemon) => PokemonModel.fromJson(pokemon))
+          .toList();
+      notifyListeners();
     } catch (error) {
-      print(error);
+      debugPrint(error.toString());
+      rethrow;
     }
   }
 
