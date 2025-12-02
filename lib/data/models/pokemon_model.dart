@@ -1,88 +1,97 @@
 import 'package:pokedexapp/domain/entities/pokemon_entity.dart';
 
 class PokemonModel extends PokemonEntity {
-  String id;
-  String name;
-  String description;
-  String category;
-  String imageUrl;
-  String height;
-  String weight;
-  int hp;
-  int attack;
-  int defense;
-  int specialAttack;
-  int specialDefense;
-  int speed;
-  int total;
-  String malePercentage;
-  String femalePercentage;
-  String eggGroups;
-  String evolvedFrom;
-  String cycles;
-  String baseExp;
-  List<String> weaknesses;
-  List<String> evolutions;
-  List<String> types;
-  List<String> abilities;
-  String evolveLevel;
-  bool isFavourite = false;
-
-  PokemonModel({
-    this.id,
-    this.name,
-    this.description,
-    this.category,
-    this.imageUrl,
-    this.height,
-    this.weight,
-    this.hp,
-    this.attack,
-    this.defense,
-    this.specialAttack,
-    this.specialDefense,
-    this.speed,
-    this.total,
-    this.malePercentage,
-    this.femalePercentage,
-    this.eggGroups,
-    this.evolvedFrom,
-    this.cycles,
-    this.baseExp,
-    this.weaknesses,
-    this.evolutions,
-    this.types,
-    this.abilities,
-    this.evolveLevel,
-    this.isFavourite = false,
+  const PokemonModel({
+    required super.id,
+    required super.name,
+    required super.description,
+    required super.category,
+    required super.imageUrl,
+    required super.height,
+    required super.weight,
+    required super.hp,
+    required super.attack,
+    required super.defense,
+    required super.specialAttack,
+    required super.specialDefense,
+    required super.speed,
+    required super.total,
+    required super.malePercentage,
+    required super.femalePercentage,
+    required super.eggGroups,
+    required super.evolvedFrom,
+    required super.cycles,
+    required super.baseExp,
+    required super.weaknesses,
+    required super.evolutions,
+    required super.types,
+    required super.abilities,
+    required super.evolveLevel,
+    super.isFavourite,
   });
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
+    String _string(String key) => (json[key] ?? '').toString();
+    int _int(String key) => int.tryParse(json[key]?.toString() ?? '') ?? 0;
+    List<String> _list(String key) => (json[key] as List?)?.map((value) => value.toString()).toList() ?? [];
+
     return PokemonModel(
-        id: json['id'],
-        description: json['xdescription'],
-        name: json['name'],
-        imageUrl: json['imageurl'],
-        hp: int.tryParse(json['hp'].toString()),
-        defense: int.tryParse(json['defense'].toString()),
-        attack: int.tryParse(json['attack'].toString()),
-        speed: int.tryParse(json['speed'].toString()),
-        total: int.tryParse(json['total'].toString()),
-        specialAttack: int.tryParse(json['special_attack'].toString()),
-        specialDefense: int.tryParse(json['special_defense'].toString()),
-        baseExp: json['base_exp'],
-        malePercentage: json['male_percentage'],
-        femalePercentage: json['female_percentage'],
-        evolutions: json['evolutions']?.cast<String>(),
-        height: json['height'],
-        weight: json['weight'],
-        weaknesses: json['weaknesses']?.cast<String>(),
-        abilities: json['abilities']?.cast<String>(),
-        category: json['category'],
-        types: json['typeofpokemon']?.cast<String>(),
-        cycles: json['cycles'],
-        eggGroups: json['egg_groups'],
-        evolvedFrom: json['evolvedFrom'],
-        evolveLevel: json['reason']);
+      id: _string('id'),
+      description: _string('xdescription'),
+      name: _string('name'),
+      imageUrl: _string('imageurl'),
+      hp: _int('hp'),
+      defense: _int('defense'),
+      attack: _int('attack'),
+      speed: _int('speed'),
+      total: _int('total'),
+      specialAttack: _int('special_attack'),
+      specialDefense: _int('special_defense'),
+      baseExp: _string('base_exp'),
+      malePercentage: _string('male_percentage'),
+      femalePercentage: _string('female_percentage'),
+      evolutions: _list('evolutions'),
+      height: _string('height'),
+      weight: _string('weight'),
+      weaknesses: _list('weaknesses'),
+      abilities: _list('abilities'),
+      category: _string('category'),
+      types: _list('typeofpokemon'),
+      cycles: _string('cycles'),
+      eggGroups: _string('egg_groups'),
+      evolvedFrom: _string('evolvedFrom'),
+      evolveLevel: _string('reason'),
+    );
+  }
+
+  PokemonModel copyWith({bool? isFavourite}) {
+    return PokemonModel(
+      id: id,
+      name: name,
+      description: description,
+      category: category,
+      imageUrl: imageUrl,
+      height: height,
+      weight: weight,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+      total: total,
+      malePercentage: malePercentage,
+      femalePercentage: femalePercentage,
+      eggGroups: eggGroups,
+      evolvedFrom: evolvedFrom,
+      cycles: cycles,
+      baseExp: baseExp,
+      weaknesses: weaknesses,
+      evolutions: evolutions,
+      types: types,
+      abilities: abilities,
+      evolveLevel: evolveLevel,
+      isFavourite: isFavourite ?? this.isFavourite,
+    );
   }
 }

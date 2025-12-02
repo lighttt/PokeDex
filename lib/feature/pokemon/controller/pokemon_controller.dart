@@ -1,8 +1,6 @@
 import 'dart:collection';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:pokedexapp/core/usecases/usecase.dart';
 import 'package:pokedexapp/data/models/pokemon_model.dart';
 import 'package:pokedexapp/domain/usecases/get_pokemons_usecase.dart';
@@ -10,17 +8,16 @@ import 'package:pokedexapp/domain/usecases/get_pokemons_usecase.dart';
 class PokemonProvider with ChangeNotifier {
   final GetPokemonListUseCase getPokemonListUseCase;
 
-  UnmodifiableListView<PokemonModel> _pokemonList = UnmodifiableListView([]);
+  UnmodifiableListView<PokemonModel> _pokemonList = UnmodifiableListView(const []);
 
-  PokemonProvider({@required this.getPokemonListUseCase});
+  PokemonProvider({required this.getPokemonListUseCase});
 
   UnmodifiableListView<PokemonModel> get pokemonList => _pokemonList;
-
 
   Future<void> getPokemonData() async {
     final response = await getPokemonListUseCase.call(NoParams());
     response.fold((failure) {
-     throw Error();
+      throw Error();
     }, (pokemonList) {
       _pokemonList = pokemonList;
       notifyListeners();
@@ -32,8 +29,12 @@ class PokemonProvider with ChangeNotifier {
   }
 
   void toggleFavourite(String id) {
-    int index = _pokemonList.indexWhere((element) => element.id == id);
-    _pokemonList[index].isFavourite = !_pokemonList[index].isFavourite;
+    final index = _pokemonList.indexWhere((element) => element.id == id);
+    if (index == -1) return;
+    final updated = _pokemonList[index].copyWith(isFavourite: !_pokemonList[index].isFavourite);
+    final mutableList = _pokemonList.toList();
+    mutableList[index] = updated;
+    _pokemonList = UnmodifiableListView(mutableList);
     notifyListeners();
   }
 
@@ -42,9 +43,6 @@ class PokemonProvider with ChangeNotifier {
   }
 
   List<PokemonModel> getSearchResults(String query) {
-    return _pokemonList
-        .where((pokemon) =>
-            pokemon.name.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+    return _pokemonList.where((pokemon) => pokemon.name.toLowerCase().startsWith(query.toLowerCase())).toList();
   }
 }

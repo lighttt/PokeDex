@@ -6,8 +6,7 @@ import '../../../core/utilities/pokemon_utlis.dart';
 
 class PokemonListItem extends StatelessWidget {
   final PokemonModel pokemon;
-
-  const PokemonListItem({Key key, this.pokemon}) : super(key: key);
+  const PokemonListItem({Key? key, required this.pokemon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

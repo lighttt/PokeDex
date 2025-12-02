@@ -3,11 +3,11 @@ import 'package:pokedexapp/feature/pokemon/controller/pokemon_provider.dart';
 import 'package:pokedexapp/feature/pokemon/screens/pokemon_detail_screen.dart';
 import 'package:provider/provider.dart';
 
-class PokemonSearchDelegate extends SearchDelegate {
+class PokemonSearchDelegate extends SearchDelegate<String?> {
   @override
   ThemeData appBarTheme(BuildContext context) {
     ThemeData themeData = Theme.of(context).copyWith(
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         elevation: 0,
         toolbarTextStyle: TextStyle(
           color: Colors.white
@@ -22,7 +22,7 @@ class PokemonSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           onPressed: () {
             query = '';
           })
@@ -32,7 +32,7 @@ class PokemonSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           close(context, '');
         });
@@ -41,7 +41,7 @@ class PokemonSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return query.isEmpty
-        ? Center(child: Text('Search through the PokeDex'))
+        ? const Center(child: Text('Search through the PokeDex'))
         : Consumer<PokemonProvider>(
             builder: (ctx, data, child) {
               final searchResults = data.getSearchResults(query);
@@ -76,7 +76,7 @@ class PokemonSearchDelegate extends SearchDelegate {
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return const Divider();
                       },
                     );
             },
@@ -86,7 +86,7 @@ class PokemonSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return query.isEmpty
-        ? Center(child: Text('Search through the PokeDex'))
+        ? const Center(child: Text('Search through the PokeDex'))
         : Consumer<PokemonProvider>(
             builder: (ctx, data, child) {
               final searchResults = data.getSearchResults(query);
@@ -121,7 +121,7 @@ class PokemonSearchDelegate extends SearchDelegate {
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return const Divider();
                       },
                     );
             },

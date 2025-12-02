@@ -5,7 +5,7 @@ import '../../../core/utilities/pokemon_utlis.dart';
 
 class BaseMoveTab extends StatelessWidget {
   final PokemonModel pokemon;
-  const BaseMoveTab({Key key, this.pokemon}) : super(key: key);
+  const BaseMoveTab({Key? key, required this.pokemon}) : super(key: key);
 
   Widget _buildItem(String title, int value) {
     return Row(
